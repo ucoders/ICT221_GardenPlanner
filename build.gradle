@@ -1,25 +1,46 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group 'ict221'
 version '1.0-SNAPSHOT'
-sourceCompatibility = 1.11
-mainClassName = 'garden_planner.gui.RunGui'
 
 repositories {
     mavenCentral()
 }
 
-test {
-    useJUnitPlatform()
+repositories {
+    mavenCentral()
 }
 
+ext {
+    junitVersion = '5.9.1'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+application {
+    mainModule = 'garden_planner.gui'
+    mainClass = 'garden_planner.gui.RunGui'
+}
+
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
 }
 
 sourceSets.main {
@@ -31,9 +52,4 @@ sourceSets.main {
         srcDirs = ['src/main/java', 'src/main/resources']
         exclude "**/*.java"
     }
-}
-
-javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-    version = "14.0.2.1"
 }
